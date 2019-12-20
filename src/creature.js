@@ -5,6 +5,25 @@ import { Hex } from './utility/hex';
 import * as arrayUtils from './utility/arrayUtils';
 import { Drop } from './drops';
 import { Effect } from './effect';
+// Creature Abilities
+import abolishedAbilitiesGenerator from './abilities/Abolished';
+import chimeraAbilitiesGenerator from './abilities/Chimera';
+import cyberWolfAbilitiesGenerator from './abilities/Cyber-Wolf';
+import darkPriestAbilitiesGenerator from './abilities/Dark-Priest';
+import goldenWyrmAbilitiesGenerator from './abilities/Golden-Wyrm';
+import gumbleAbilitiesGenerator from './abilities/Gumble';
+import vehemothAbilitiesGenerator from './abilities/Vehemoth';
+import impalerAbilitiesGenerator from './abilities/Impaler';
+import asherAbilitiesGenerator from './abilities/Asher';
+import magmaSpawnAbilitiesGenerator from './abilities/Magma-Spawn';
+import nightmareAbilitiesGenerator from './abilities/Nightmare';
+import nutcaseAbilitiesGenerator from './abilities/Nutcase';
+import scavengerAbilitiesGenerator from './abilities/Scavenger';
+import snowBunnyAbilitiesGenerator from './abilities/Snow-Bunny';
+import swineThugAbilitiesGenerator from './abilities/Swine-Thug';
+import uncleFungusAbilitiesGenerator from './abilities/Uncle-Fungus';
+import headlessAbilitiesGenerator from './abilities/Headless';
+import stomperAbilitiesGenerator from './abilities/Stomper';
 
 /**
  * Creature Class
@@ -47,6 +66,8 @@ export class Creature {
 	 * obj :			Object :	Object containing all creature stats
 	 *
 	 */
+	// TODO: issue #1469; add data needed for Ability constructor to obj
+	//		 need to find where obj is made and add the data we need there
 	constructor(obj, game) {
 		// Engine
 		this.game = game;
@@ -120,6 +141,70 @@ export class Creature {
 		this.remainingMove = 0; //Default value recovered each turn
 
 		// Abilities
+
+		// issue #1469
+		// Figure out which set of functions (require, query, activate) to use
+
+		switch(this.type) {
+			// Dark Priest
+			case 0:
+				break;
+			// Swine Thug
+			case 37:
+				break;
+			// Uncle Fungus
+			case 3:
+				break;
+			// Magma Spawn
+			case 4:
+				break;
+			// Chimera
+			case 45:
+				break;
+			// Snow Bunny
+			case 12:
+				break;
+			// Impaler
+			case 5:
+				break;
+			// Gumble
+			case 14:
+				break;
+			// Abolished
+			case 7:
+				break;
+			// Nutcase
+			case 40:
+				break;
+			// Nightmare
+			case 9:
+				break;
+			// Headless
+			case 39:
+				break;
+			// Scavenger
+			case 44:
+				break;
+			// Cyber Wolf
+			case 31:
+				break;
+			// Stomper
+			case 28:
+				break;
+			// Vehemoth
+			case 6:
+				break;
+			// Golden Wyrm
+			case 33:
+				break;
+			// Asher
+			case 22:
+				break;
+			// Batmadillo
+			//case 42:
+				//break;
+		};
+		// TODO: issue #1469; pass needed data to Ability constructor
 		this.abilities = [
 			new Ability(this, 0, game),
 			new Ability(this, 1, game),

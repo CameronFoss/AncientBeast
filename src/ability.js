@@ -11,7 +11,9 @@ import * as arrayUtils from './utility/arrayUtils';
  * Class parsing function from creature abilities
  */
 export class Ability {
-	constructor(creature, abilityID, game) {
+	// TODO: issue #1469; add necessary data to function pointer
+	// 		 all needed data yet to be determined
+	constructor(creature, abilityID, game, requireFunc, queryFunc, activateFunc) {
 		this.creature = creature;
 		this.game = game;
 		this.used = false;
@@ -26,6 +28,23 @@ export class Ability {
 		if (this.requirements === undefined && this.costs !== undefined) {
 			this.requirements = this.costs;
 		}
+	}
+
+	// issue #1469
+	// The below should call the function pointers passed in the constructor
+	// TODO: how to call functions with different amounts of inputs
+	// ex. godletPrinterActivate takes (hex, args) and electroShockerActivate takes (target)
+
+	require() {
+
+	}
+
+	query() {
+
+	}
+
+	activate() {
+
 	}
 
 	hasUpgrade() {

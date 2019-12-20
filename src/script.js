@@ -38,6 +38,9 @@ AB.getLog = AB.currentGame.gamelog.get.bind(AB.currentGame.gamelog);
 AB.restoreGame = AB.currentGame.gamelog.play.bind(AB.currentGame.gamelog);
 window.AB = AB;
 
+
+// TODO: issue #1469; once modular abilities are completed, the below shouldn't be necessary anymore;
+//		 loading the abilities will be handled in the Creature class constructor
 // Load the abilities
 const abilitiesGenerators = [
 	abolishedAbilitiesGenerator,

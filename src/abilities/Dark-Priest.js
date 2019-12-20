@@ -7,59 +7,72 @@ import { Creature } from '../creature';
  * @param {Object} G the game object
  * @return {void}
  */
+
+ // issue #1469;
+ // Should export an array holding the require, activate, and query functions of each ability
+ // Export array structure: [Plasma Field functions, Electro Shocker functions, Disruptor Beam functions, Godlet Printer functions] 
+ // Detailed array structure: [[plasmaFieldRequire, plasmaFieldActivate, plasmaFieldQuery], [electroShockerRequire, ..., ...], [...], [...]]
+
+ // First ability: Plasma Field
+ plasmaFieldRequire() {
+	this.setUsed(false); // Can be triggered multiple times
+	this.creature.protectedFromFatigue = this.testRequirements();
+	return this.creature.protectedFromFatigue;
+ }
+
+ plasmaFieldActivate(damage) {
+	if (G.activeCreature.id == this.creature.id) {
+		/* only used when unit isn't active */
+		return damage; // Return Damage
+	}
+
+	if (this.isUpgraded() && damage.melee && !damage.counter) {
+		//counter damage
+		let counter = new Damage(
+			this.creature, // Attacker
+			{
+				pure: 9,
+			}, // Damage Type
+			1, // Area
+			[], // Effects
+			G,
+		);
+		counter.counter = true;
+		G.activeCreature.takeDamage(counter);
+	}
+
+	this.creature.player.plasma -= 1;
+
+	this.creature.protectedFromFatigue = this.testRequirements();
+
+	damage.damages = {
+		total: 0,
+	};
+	damage.status = 'Shielded';
+	damage.effect = [];
+
+	damage.noLog = true;
+
+	this.end(true); // Disable message
+
+	G.log('%CreatureName' + this.creature.id + '% is protected by Plasma Field');
+	return damage; // Return Damage
+ }
+
+ // Second Ability: Electro Shocker
+ electroShockerRequire() {
+	 
+ }
+
+ // issue #1469;
+ // Each of the require, query, and activate functions should be moved and defined separately as above
+ // TODO: figure out best way to handle trigger and _targetTeam
 export default G => {
 	G.abilities[0] = [
 		// 	First Ability: Plasma Field
 		{
 			//	Type : Can be "onQuery", "onStartPhase", "onDamage"
-			trigger: 'onUnderAttack',
-
-			// 	require() :
-			require: function() {
-				this.setUsed(false); // Can be triggered multiple times
-				this.creature.protectedFromFatigue = this.testRequirements();
-				return this.creature.protectedFromFatigue;
-			},
-
-			//	activate() :
-			activate: function(damage) {
-				if (G.activeCreature.id == this.creature.id) {
-					/* only used when unit isn't active */
-					return damage; // Return Damage
-				}
-
-				if (this.isUpgraded() && damage.melee && !damage.counter) {
-					//counter damage
-					let counter = new Damage(
-						this.creature, // Attacker
-						{
-							pure: 9,
-						}, // Damage Type
-						1, // Area
-						[], // Effects
-						G,
-					);
-					counter.counter = true;
-					G.activeCreature.takeDamage(counter);
-				}
-
-				this.creature.player.plasma -= 1;
-
-				this.creature.protectedFromFatigue = this.testRequirements();
-
-				damage.damages = {
-					total: 0,
-				};
-				damage.status = 'Shielded';
-				damage.effect = [];
-
-				damage.noLog = true;
-
-				this.end(true); // Disable message
-
-				G.log('%CreatureName' + this.creature.id + '% is protected by Plasma Field');
-				return damage; // Return Damage
-			},
+			trigger: 'onUnderAttack'
 		},
 
 		// 	Second Ability: Electro Shocker
